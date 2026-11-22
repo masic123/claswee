@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "图片导入课程",
+  "usingComponents": {
+    "message-note": "/components/message-note/index"
+  }
+}

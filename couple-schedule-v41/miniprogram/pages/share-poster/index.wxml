@@ -1,0 +1,14 @@
+<view class="app-skin skin-{{skin}} poster-page">
+  <view class="card poster-controls">
+    <view class="title">claswee</view>
+    <view class="poster-row"><text>分享哪一周</text><picker mode="selector" range="{{weekOptions}}" value="{{weekIndex}}" bindchange="setWeek"><view>第 {{week}} 周 · {{weekRange}} ›</view></picker></view>
+    <view class="poster-row"><view><text>包含周末</text></view><switch checked="{{includeWeekend}}" color="#e88eaf" bindchange="setWeekend" /></view>
+    <view class="poster-row"><view><text>隐藏课程详情</text></view><switch checked="{{maskCourses}}" color="#e88eaf" bindchange="setMask" /></view>
+  </view>
+  <view wx:if="{{busy}}" class="poster-status">正在生成完整课表…</view>
+  <view wx:if="{{error}}" class="poster-status"><text>{{error}}</text><button bindtap="generate">重新生成</button></view>
+  <image wx:if="{{posterPath}}" class="poster-preview" src="{{posterPath}}" mode="widthFix" bindtap="preview" />
+  <view class="poster-actions"><button bindtap="saveImage" disabled="{{busy || !posterPath}}">保存到相册</button><button class="primary" bindtap="shareImage" disabled="{{busy || !posterPath}}">分享图片</button></view>
+  <canvas type="2d" id="shareCanvas" class="poster-canvas" style="height:{{canvasHeight}}px" />
+</view>
+<message-note id="messageNote" />

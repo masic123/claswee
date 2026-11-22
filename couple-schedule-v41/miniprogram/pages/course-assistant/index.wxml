@@ -1,0 +1,27 @@
+<view class="app-skin skin-{{skin}} ai-add-page">
+ <view class="ai-top"><view class="ai-icon" aria-hidden="true">✦</view><view><text class="ai-title">把课交给 AI 整理</text></view></view>
+ <scroll-view class="conversation" scroll-y scroll-into-view="{{toView}}" scroll-with-animation>
+  <view wx:if="{{!connected}}" class="connection-hint"><text>文字加课需先连接房间。</text><button bindtap="openSync">去连接房间</button></view>
+  <view class="welcome" wx:if="{{!messages.length && !plans.length}}"><text class="welcome-title">一句话，或一张课表图</text><button wx:for="{{examples}}" wx:key="*this" data-index="{{index}}" bindtap="example" disabled="{{busy || choosingImage || hasPending}}" class="example">{{item}}<text>↗</text></button></view>
+  <view wx:for="{{messages}}" wx:key="id" id="{{item.id}}" class="chat-row {{item.role}}"><view class="chat-bubble" aria-label="{{item.role==='user'?'你':'AI加课助手'}}"><image wx:if="{{item.imagePath}}" src="{{item.imagePath}}" mode="aspectFit" class="chat-image" data-path="{{item.imagePath}}" bindtap="previewImage" aria-label="查看课表原图"/><text class="chat-content" selectable>{{item.content}}</text></view></view>
+  <view wx:if="{{busy}}" class="thinking">{{progress || '正在整理课程信息…'}}</view>
+  <view wx:if="{{plans.length}}" id="batch-summary" class="batch-summary"><view class="draft-heading"><text>共 {{plans.length}} 门草稿 · 已选 {{selectedCount}} 门</text><button bindtap="selectAll" disabled="{{busy}}" class="select-all">全选 / 取消</button></view><text wx:if="{{incompleteCount}}" class="draft-warning">选中的 {{incompleteCount}} 门信息未全，请补充或取消勾选。</text></view>
+  <view wx:for="{{plans}}" wx:for-item="course" wx:key="id" class="course-draft {{!course.selected?'unselected':''}}">
+   <view class="draft-heading"><button class="course-select" data-id="{{course.id}}" bindtap="toggleCourse" disabled="{{busy || choosingImage}}" aria-label="{{course.selected?'取消选择':'选择'}}{{course.name}}">{{course.selected?'☑':'☐'}} 第 {{course.index}} 门</button><text class="draft-badge">{{course.origin==='image'?'图片 · ':''}}{{course.duplicate?'重复课程':course.ready?'尚未保存':'待补充'}}</text></view>
+   <text class="draft-name">{{course.name}}</text>
+   <block wx:if="{{course.ready}}"><view class="draft-row"><text>加给谁</text><text>{{course.owner}}</text></view><view class="draft-row"><text>上课时间</text><view><text wx:for="{{course.timeLabels}}" wx:key="*this" class="draft-time">{{item}}</text></view></view><view class="draft-row"><text>周次</text><text>{{course.repeatLabel}}</text></view><view class="draft-row"><text>地点</text><text>{{course.location}}</text></view><view wx:if="{{course.teacher}}" class="draft-row"><text>老师</text><text>{{course.teacher}}</text></view></block>
+   <text wx:else class="draft-warning">{{course.question}}</text><text wx:for="{{course.warnings}}" wx:key="*this" class="draft-note">{{item}}</text><text wx:if="{{course.conflicts.length}}" class="draft-warning">时间重叠：{{course.conflictText}}</text><text wx:if="{{course.duplicate}}" class="draft-note">已跳过重复课程。</text>
+  </view>
+  <view wx:if="{{saved}}" id="saved-result" class="saved-card"><text class="saved-title">已加入 {{savedCount}} 门课程</text><button bindtap="backToSchedule" class="view-schedule">去课表看看</button></view>
+  <view class="conversation-end"></view>
+ </scroll-view>
+ <view class="ai-composer">
+  <view class="composer-actions"><button bindtap="reset" disabled="{{busy || choosingImage}}">开始新一批</button><button wx:if="{{hasPending}}" bindtap="editRemaining" disabled="{{busy || choosingImage}}">编辑剩余内容</button><button wx:if="{{canRetryImage}}" bindtap="retryImage" disabled="{{busy || choosingImage || hasPending}}">重试识图</button><button wx:if="{{canUndo}}" class="undo-batch" bindtap="undo" disabled="{{busy || choosingImage}}">撤销上批添加</button></view>
+  <view wx:if="{{error}}" class="ai-error">{{error}}</view>
+  <button wx:if="{{plans.length}}" class="confirm-course batch-confirm" bindtap="confirmAdd" disabled="{{busy || choosingImage || hasPending || !selectedCount || incompleteCount}}">确认添加已选 {{selectedCount}} 门</button>
+  <view class="image-tools"><picker range="{{imageOwners}}" value="{{imageOwnerIndex}}" bindchange="chooseImageOwner" disabled="{{busy || choosingImage}}"><view class="image-owner">图片加给 <text>{{imageOwners[imageOwnerIndex]}}</text>⌄</view></picker><button class="upload-image" bindtap="uploadImage" disabled="{{busy || choosingImage || hasPending}}" loading="{{choosingImage}}">＋ 传课表图</button></view>
+  <view class="input-row"><textarea value="{{draft}}" bindinput="input" placeholder="说想加的课，或补充图片里的课程信息…" maxlength="-1" auto-height fixed cursor-spacing="20" disabled="{{busy || choosingImage || hasPending}}" aria-label="描述或修改待添加的课程"/><button class="send" bindtap="send" disabled="{{busy || choosingImage || !connected || (!draft && !hasPending)}}" loading="{{busy}}">{{busy?'整理中':hasPending?'继续整理':'发送'}}</button></view>
+  
+ </view>
+</view>
+

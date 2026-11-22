@@ -1,0 +1,15 @@
+<view class="app-skin skin-{{skin}}">
+<view class="card">
+  <view class="label">课程名称</view><input class="text-input" value="{{name}}" placeholder="例如：高等数学" placeholder-class="form-placeholder" data-key="name" bindinput="input" />
+  <view class="label">地点</view><input class="text-input" value="{{loc}}" placeholder="例如：教学楼 A302" placeholder-class="form-placeholder" data-key="loc" bindinput="input" />
+  <view class="label">老师（可选）</view><input class="text-input" value="{{teacher}}" placeholder="例如：张老师" placeholder-class="form-placeholder" data-key="teacher" bindinput="input" />
+  <view class="label">是谁的课</view><view class="choice"><button data-owner="cat" bindtap="chooseOwner" class="{{owner==='cat'?'on cat':''}}"><text class="nick-cat">{{catName}}</text></button><button data-owner="dog" bindtap="chooseOwner" class="{{owner==='dog'?'on dog':''}}"><text class="nick-dog">{{dogName}}</text></button></view>
+  <view class="label">上课时间</view>
+  <view class="slot" wx:for="{{slots}}" wx:key="index"><picker mode="selector" range="{{days}}" value="{{item.day-1}}" data-index="{{index}}" data-key="day" bindchange="pickSlot"><view>{{days[item.day-1]}}</view></picker><picker mode="selector" range="{{sections}}" value="{{item.s1-1}}" data-index="{{index}}" data-key="s1" bindchange="pickSlot"><view>{{sections[item.s1-1]}}</view></picker><picker mode="selector" range="{{sections}}" value="{{item.s2-1}}" data-index="{{index}}" data-key="s2" bindchange="pickSlot"><view>{{sections[item.s2-1]}}</view></picker><button class="remove" data-index="{{index}}" bindtap="removeSlot">×</button></view>
+  <button class="add-slot" bindtap="addSlot">＋ 添加时间</button>
+  <view class="label">上课周次</view><view class="choice compact"><button data-week="all" bindtap="chooseWeek" class="{{week==='all'?'on':''}}">每周</button><button data-week="odd" bindtap="chooseWeek" class="{{week==='odd'?'on':''}}">单周</button><button data-week="even" bindtap="chooseWeek" class="{{week==='even'?'on':''}}">双周</button><button data-week="custom" bindtap="chooseWeek" class="{{week==='custom'?'on':''}}">自定义</button></view>
+  <view wx:if="{{week==='custom'}}" class="custom"><picker mode="selector" range="{{weekOptions}}" value="{{wf-1}}" data-key="wf" bindchange="pickWeek"><view>从 第{{wf}}周</view></picker><picker mode="selector" range="{{weekOptions}}" value="{{wt-1}}" data-key="wt" bindchange="pickWeek"><view>到 第{{wt}}周</view></picker><view class="choice parity"><button data-parity="all" bindtap="chooseParity" class="{{customParity==='all'?'on':''}}">每周</button><button data-parity="odd" bindtap="chooseParity" class="{{customParity==='odd'?'on':''}}">单周</button><button data-parity="even" bindtap="chooseParity" class="{{customParity==='even'?'on':''}}">双周</button></view></view>
+  <button class="save" bindtap="save">{{editing?'保存修改':'保存课程'}}</button><button wx:if="{{editing}}" class="delete" bindtap="remove">删除课程</button>
+</view>
+</view>
+<message-note id="messageNote" />

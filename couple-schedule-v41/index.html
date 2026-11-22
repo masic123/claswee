@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>claswee</title>
+<meta name="theme-color" content="#ffd6e0">
+<script>
+  (function () {
+    var colors = { blush: '#ffd6e0', mint: '#d9eee7', sun: '#f7e7c3', night: '#14223b' };
+    var skin = 'blush';
+    try { skin = localStorage.getItem('claswee.skin') || skin; } catch (e) { /* 本地存储不可用时使用默认皮肤 */ }
+    if (!colors[skin]) skin = 'blush';
+    document.documentElement.setAttribute('data-skin', skin);
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', colors[skin]);
+  })();
+</script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="claswee">
+<link rel="manifest" href="manifest.json?v=65">
+<link rel="apple-touch-icon" href="icons/claswe-apple-touch-icon.png?v=1">
+<link rel="icon" href="icons/claswe-icon-192.png?v=1">
+<link rel="stylesheet" href="css/style.css?v=70">
+<link rel="stylesheet" href="css/skins.css?v=66">
+</head>
+<body>
+
+<!-- ========== 课表页 ========== -->
+<section class="page active" id="page-schedule">
+  <header class="hero">
+    <div class="paw-bg" aria-hidden="true"></div>
+    <div class="couple">
+      <button class="avatar-btn" id="avatarMe">
+        <span class="avatar" id="avatarMeImg">🐱</span>
+        <span class="nick" id="nickMe">小猫</span>
+      </button>
+      <span class="link-heart">💗</span>
+      <button class="avatar-btn" id="avatarTa">
+        <span class="avatar dog" id="avatarTaImg">🐶</span>
+        <span class="nick" id="nickTa">小狗</span>
+      </button>
+    </div>
+    <div class="schedule-controls">
+      <div class="filter-picker" id="filterPicker">
+        <button class="control-trigger" id="filterTrigger" aria-expanded="false" aria-controls="viewSwitch">
+          <span class="control-icon couple-icon" aria-hidden="true"><span class="couple-person girl"><i></i></span><span class="couple-person boy"><i></i></span></span><span>谁的课表</span><span class="control-chevron">⌄</span>
+        </button>
+        <div class="control-menu view-switch" id="viewSwitch" role="menu">
+          <button data-view="both" class="on" role="menuitem"><span>一起看</span><i>✓</i></button>
+          <button data-view="cat" role="menuitem"><span>只看小猫</span><i>✓</i></button>
+          <button data-view="dog" role="menuitem"><span>只看小狗</span><i>✓</i></button>
+        </div>
+      </div>
+      <div class="layout-picker" id="layoutPicker">
+        <button class="control-trigger" id="layoutModeTrigger" aria-expanded="false" aria-controls="layoutModeMenu">
+          <span class="control-icon layout-trigger-icon" id="layoutModeIcon">▦</span><span>视图</span><span class="control-chevron layout-chevron">⌄</span>
+        </button>
+        <div class="control-menu layout-menu" id="layoutModeMenu" role="menu">
+          <button data-layout="sections" role="menuitem" class="on"><span class="layout-menu-icon">▦</span><b>按节数排列</b><i>✓</i></button>
+          <button data-layout="timeline" role="menuitem"><span class="layout-menu-icon">◷</span><b>按时间排列</b><i>✓</i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="weekbar">
+    <button class="round" id="prevWeek" aria-label="上一周">‹</button>
+    <div class="week-info">
+      <div class="week-title">第 <span id="weekNum">1</span> 周</div>
+      <div class="week-range" id="weekRange"></div>
+    </div>
+    <div class="week-actions">
+      <button class="round" id="nextWeek" aria-label="下一周">›</button>
+      <button class="today-btn" id="todayBtn">今天</button>
+    </div>
+  </div>
+
+  <div class="grid-wrap">
+    <div class="grid" id="grid"></div>
+  </div>
+  <div class="timeline-wrap" id="timelineWrap" hidden>
+    <div id="timeline"></div>
+  </div>
+  <footer class="developer-contact">开发者联系方式：某书 拿铁不加冰 26504393686</footer>
+</section>
+
+<!-- ========== 设置页 ========== -->
+<section class="page" id="page-settings">
+  <div class="scroll">
+    <h1 class="page-title">设置 ⚙️</h1>
+
+    <div class="card skin-card">
+      <div class="card-title">课表皮肤</div>
+      <p class="hint">选一套喜欢的颜色，只改变这台设备的外观。</p>
+      <div class="skin-picker" id="skinPicker" role="radiogroup" aria-label="课表皮肤">
+        <label class="skin-option" data-preview-skin="blush">
+          <input type="radio" name="skin" value="blush">
+          <span class="skin-preview" aria-hidden="true"><i class="skin-preview-head"></i><i class="skin-preview-cat"></i><i class="skin-preview-dog"></i><i class="skin-preview-line"></i></span>
+          <span class="skin-label"><strong>心动粉蓝</strong><small>柔软 · 元气</small></span>
+        </label>
+        <label class="skin-option" data-preview-skin="mint">
+          <input type="radio" name="skin" value="mint">
+          <span class="skin-preview" aria-hidden="true"><i class="skin-preview-head"></i><i class="skin-preview-cat"></i><i class="skin-preview-dog"></i><i class="skin-preview-line"></i></span>
+          <span class="skin-label"><strong>海盐薄荷</strong><small>清新 · 轻盈</small></span>
+        </label>
+        <label class="skin-option" data-preview-skin="sun">
+          <input type="radio" name="skin" value="sun">
+          <span class="skin-preview" aria-hidden="true"><i class="skin-preview-head"></i><i class="skin-preview-cat"></i><i class="skin-preview-dog"></i><i class="skin-preview-line"></i></span>
+          <span class="skin-label"><strong>日光奶油</strong><small>温暖 · 治愈</small></span>
+        </label>
+        <label class="skin-option" data-preview-skin="night">
+          <input type="radio" name="skin" value="night">
+          <span class="skin-preview" aria-hidden="true"><i class="skin-preview-head"></i><i class="skin-preview-cat"></i><i class="skin-preview-dog"></i><i class="skin-preview-line"></i></span>
+          <span class="skin-label"><strong>午夜星图</strong><small>安静 · 专注</small></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">我们俩</div>
+      <div class="profile-row">
+        <div class="avatar lg" id="setAvatarCat">🐱</div>
+        <input class="nick-input" id="setNickCat" placeholder="小猫的昵称" maxlength="12">
+        <button class="mini" data-pick-avatar="cat">换头像</button>
+      </div>
+      <div class="profile-row">
+        <div class="avatar lg dog" id="setAvatarDog">🐶</div>
+        <input class="nick-input" id="setNickDog" placeholder="小狗的昵称" maxlength="12">
+        <button class="mini" data-pick-avatar="dog">换头像</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">我是谁（决定默认添加给谁）</div>
+      <div class="seg" id="setMe">
+        <button data-me="cat">🐱 我是小猫</button>
+        <button data-me="dog">🐶 我是小狗</button>
+      </div>
+      <div class="seg-hint" id="setMeStatus" role="status" aria-live="polite"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">学期设置</div>
+      <label class="field">
+        <span id="setCatStartLabel">小猫第一周的周一</span>
+        <span class="monday-picker" id="setCatStart">
+          <select data-part="year" aria-label="小猫开学年份"></select>
+          <select data-part="month" aria-label="小猫开学月份"></select>
+          <select data-part="day" aria-label="小猫第一周周一"></select>
+        </span>
+      </label>
+      <label class="field">
+        <span id="setDogStartLabel">小狗第一周的周一</span>
+        <span class="monday-picker" id="setDogStart">
+          <select data-part="year" aria-label="小狗开学年份"></select>
+          <select data-part="month" aria-label="小狗开学月份"></select>
+          <select data-part="day" aria-label="小狗第一周周一"></select>
+        </span>
+      </label>
+      <p class="hint">两个人可以分别从自己的第一周开始上课；合并课表时会按真实日期对齐。起始日期仅可选择周一。</p>
+      <label class="field">
+        <span>每人总周数</span>
+        <input type="number" id="setWeeks" min="1" max="40">
+      </label>
+      <label class="switch">
+        <input type="checkbox" id="setWeekend">
+        <span>显示周末</span>
+      </label>
+    </div>
+
+    <div class="card">
+      <div class="card-title">节次时间</div>
+      <p class="hint">选择一个人，只展开并设置这个人的上课时间。</p>
+      <div class="section-owner-switch" id="sectionTimeOwnerSwitch" role="group" aria-label="选择要设置节次时间的人">
+        <button data-owner="cat" class="on" aria-pressed="true"><i class="owner-dot cat"></i><span id="sectionTimeCatName">小猫</span></button>
+        <button data-owner="dog" aria-pressed="false"><i class="owner-dot dog"></i><span id="sectionTimeDogName">小狗</span></button>
+      </div>
+      <div class="section-owner-current" id="sectionTimeCurrent">小猫的节次时间</div>
+      <div id="sectionList"></div>
+      <button class="mini wide" id="addSection">＋ 添加一节</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">数据</div>
+      <div class="row">
+        <button class="btn" id="btnReset">恢复默认课表</button>
+        <button class="btn danger" id="btnClear">清空所有课程</button>
+      </div>
+    </div>
+    <div class="foot-space"></div>
+  </div>
+</section>
+
+<!-- ========== 同步页 ========== -->
+<section class="page" id="page-sync">
+  <div class="scroll">
+    <h1 class="page-title">同步 ☁️</h1>
+
+    <div class="card">
+      <div class="card-title">安全房间</div>
+      <p class="hint">创建房间时自行设置密码；另一台设备必须输入正确密码才能访问同一份课表。</p>
+      <div id="syncDisconnected">
+        <div class="sync-modes" role="tablist" aria-label="房间操作">
+          <button class="on" id="syncModeJoin" type="button">加入房间</button>
+          <button id="syncModeCreate" type="button">创建房间</button>
+        </div>
+        <label class="field">
+          <span>房间码</span>
+          <input id="syncRoom" maxlength="64" placeholder="例如 love2026" autocomplete="off" autocapitalize="none">
+        </label>
+        <label class="field">
+          <span>房间密码</span>
+          <input id="syncPassword" type="password" maxlength="72" placeholder="至少 6 位" autocomplete="current-password">
+        </label>
+        <label class="field" id="syncConfirmField" hidden>
+          <span>再次输入密码</span>
+          <input id="syncPasswordConfirm" type="password" maxlength="72" placeholder="再次输入相同密码" autocomplete="new-password">
+        </label>
+        <button class="btn primary wide" id="btnEnterRoom">验证密码并加入</button>
+        <p class="hint sync-room-notice" id="syncRoomNotice">已有房间请输入密码加入；旧房间首次加入时会提示设置首个密码。</p>
+      </div>
+      <div class="sync-connected" id="syncConnected" hidden>
+        <div><span>当前房间</span><strong id="syncConnectedRoom"></strong></div>
+        <b>已连接</b>
+      </div>
+      <div class="row sync-room-actions" id="syncRoomActions" hidden>
+        <button class="btn primary action-btn" id="btnPush"><span class="action-icon action-upload" aria-hidden="true"><i></i><b></b></span><span>上传课表</span></button>
+        <button class="btn primary action-btn" id="btnPull"><span class="action-icon action-pull" aria-hidden="true"><i></i><b></b></span><span>拉取课表</span></button>
+      </div>
+      <button class="btn danger wide sync-leave" id="btnLeaveRoom" hidden>退出当前房间</button>
+      <label class="switch">
+        <input type="checkbox" id="syncAuto" checked>
+        <span>自动获取最新课表（打开时及每 15 秒）</span>
+      </label>
+      <label class="switch">
+        <input type="checkbox" id="syncAutoPush" checked>
+        <span>每次修改后自动上传</span>
+      </label>
+      <div class="status" id="syncStatus"></div>
+    </div>
+
+    <div class="card" id="passwordChangeCard">
+      <div class="card-title">修改房间密码</div>
+      <p class="hint">知道旧密码即可修改。已连接的设备继续同步，之后加入须使用新密码。</p>
+      <label class="field"><span>房间码</span><input id="changePasswordRoom" maxlength="64" placeholder="需要修改密码的房间码" autocomplete="off" autocapitalize="none"></label>
+      <label class="field"><span>旧密码</span><input id="changePasswordOld" type="password" maxlength="72" autocomplete="current-password"></label>
+      <label class="field"><span>新密码</span><input id="changePasswordNew" type="password" maxlength="72" placeholder="6–72 位" autocomplete="new-password"></label>
+      <label class="field"><span>再次输入新密码</span><input id="changePasswordConfirm" type="password" maxlength="72" autocomplete="new-password"></label>
+      <button class="btn primary wide" id="btnChangePassword">验证旧密码并修改</button>
+      <div class="status" id="changePasswordStatus" role="status" aria-live="polite"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">导出与文件同步</div>
+      <p class="hint">可直接导出表格查看；如需用文件给对方同步，请导出同步文件后让对方导入。</p>
+      <div class="row">
+        <button class="btn action-btn export-table" id="btnExport"><span class="action-icon action-table" aria-hidden="true"><i></i></span><span>导出表格</span></button>
+        <button class="btn action-btn import-file" id="btnImport"><span class="action-icon action-import" aria-hidden="true"><i></i><b></b></span><span>导入同步文件</span></button>
+      </div>
+      <button class="btn wide action-btn export-sync" id="btnExportSync"><span class="action-icon action-export" aria-hidden="true"><i></i><b></b></span><span>导出同步文件（发给对方）</span></button>
+      <input type="file" id="fileImport" accept="application/json,.json" hidden>
+      <div class="status" id="fileStatus"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">同步说明</div>
+      <p class="hint" id="syncInfo">上次同步：从未</p>
+    </div>
+    <div class="foot-space"></div>
+  </div>
+</section>
+
+<!-- ========== 底部导航 ========== -->
+<nav class="tabbar">
+  <button class="tab on" data-page="page-schedule"><span class="tab-icon tab-icon-schedule" aria-hidden="true"><span class="nav-calendar"><i class="nav-calendar-grid"></i></span></span>课表</button>
+  <button class="tab" data-page="page-settings"><span class="tab-icon tab-icon-settings" aria-hidden="true"><span class="nav-gear">⚙︎</span></span>设置</button>
+  <button class="tab" data-page="page-sync"><span class="tab-icon tab-icon-sync" aria-hidden="true"><span class="nav-cloud">☁︎</span></span>同步</button>
+  <button class="tab add" id="fabAdd"><span class="tab-add-icon" aria-hidden="true">＋</span>加课</button>
+</nav>
+
+<!-- ========== 添加/编辑课程 ========== -->
+<div class="mask" id="sheetMask"></div>
+<div class="sheet" id="courseSheet">
+  <div class="sheet-head">
+    <button id="sheetCancel">取消</button>
+    <div class="sheet-title" id="sheetTitle">添加课程</div>
+    <div class="sheet-head-actions">
+      <button class="danger-link" id="fDelete">删除</button>
+      <button id="sheetSave" class="primary">保存</button>
+    </div>
+  </div>
+  <div class="sheet-body">
+    <label class="field">
+      <span>课程名称</span>
+      <input id="fName" placeholder="例如：偏微分方程" maxlength="20">
+    </label>
+    <label class="field">
+      <span>上课地点</span>
+      <input id="fLoc" placeholder="例如：33楼204" maxlength="20">
+    </label>
+    <label class="field">
+      <span>老师（可选）</span>
+      <input id="fTeacher" placeholder="例如：张老师" maxlength="12">
+    </label>
+    <div class="field">
+      <span>谁的课</span>
+      <div class="seg" id="fOwner">
+        <button data-owner="cat">🐱 小猫</button>
+        <button data-owner="dog">🐶 小狗</button>
+      </div>
+    </div>
+    <div class="field" id="fSectionTimesField">
+      <div class="time-field-title">
+        <span>上课时间</span>
+        <button class="mini" id="btnAddTime" type="button">＋ 添加时间</button>
+      </div>
+      <div class="course-times" id="fTimes"></div>
+    </div>
+    <div class="field">
+      <span>周次</span>
+      <div class="seg" id="fWeekMode">
+        <button data-mode="all">全部</button>
+        <button data-mode="odd">单周</button>
+        <button data-mode="even">双周</button>
+        <button data-mode="custom">自定义</button>
+      </div>
+      <div class="week-custom" id="fWeekCustom">
+        <div class="week-range">
+          第 <input type="number" id="fWeekFrom" min="1" max="40"> 周
+          至第 <input type="number" id="fWeekTo" min="1" max="40"> 周
+        </div>
+        <div class="seg week-parity" id="fWeekCustomParity">
+          <button data-parity="all">范围内每周</button>
+          <button data-parity="odd">范围内单周</button>
+          <button data-parity="even">范围内双周</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 头像选择 ========== -->
+<div class="mask" id="avatarMask"></div>
+<div class="sheet" id="avatarSheet">
+  <div class="sheet-head">
+    <button id="avatarCancel">取消</button>
+    <div class="sheet-title">换个头像</div>
+    <button id="avatarSave" class="primary">保存</button>
+  </div>
+  <div class="sheet-body">
+    <div class="emoji-grid" id="emojiGrid"></div>
+    <button class="btn wide" id="btnUploadAvatar">🖼️ 从相册上传</button>
+    <input type="file" id="avatarFile" accept="image/*" hidden>
+    <div class="avatar-preview">
+      <div class="avatar xl" id="avatarPreview">🐱</div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/sync.js?v=71"></script>
+<script src="js/app.js?v=71"></script>
+</body>
+</html>

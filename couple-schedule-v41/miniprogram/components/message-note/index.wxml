@@ -1,0 +1,23 @@
+<view class="skin-{{skin}}">
+  <view wx:if="{{showNote || showEditor}}" class="note-backdrop" catchtouchmove="swallow">
+    <view wx:if="{{showNote}}" class="note-paper from-{{sender}}" catchtap="swallow">
+      <view class="note-tape"></view>
+      <view class="note-heading"><text class="note-heart">♡</text><text>{{fromName}}给你的留言</text></view>
+      <text class="note-date">{{sentTime}}</text>
+      <scroll-view scroll-y class="note-body"><text selectable>{{note.content}}</text></scroll-view>
+      <view wx:if="{{remaining > 1}}" class="note-footer"><text class="note-count">还有 {{remaining - 1}} 张小纸条</text></view>
+      <text wx:if="{{error}}" class="note-error">{{error}}</text>
+      <button class="note-primary" bindtap="collect" loading="{{collecting}}" disabled="{{collecting}}">{{remaining > 1 ? '收下这张，看看下一张' : '收下留言 ♡'}}</button>
+      <button class="note-secondary" bindtap="later" disabled="{{collecting}}">稍后再看</button>
+    </view>
+    <view wx:if="{{showEditor}}" class="note-paper note-editor from-{{sender}}" catchtap="swallow">
+      <view class="note-tape"></view>
+      <view class="note-heading"><text class="note-heart">♡</text><text>写给 {{toName}}</text></view>
+      <textarea class="note-input" maxlength="300" placeholder="比如：下课等我，一起去吃你喜欢的那家。" value="{{draft}}" bindinput="input" disabled="{{sending}}" show-confirm-bar="false" />
+      <text class="note-length">{{length}} / 300</text>
+      <text wx:if="{{error}}" class="note-error">{{error}}</text>
+      <button class="note-primary" bindtap="send" loading="{{sending}}" disabled="{{sending || !length}}">把心意送给 {{toName}}</button>
+      <button class="note-secondary" bindtap="closeComposer" disabled="{{sending}}">先放一放</button>
+    </view>
+  </view>
+</view>

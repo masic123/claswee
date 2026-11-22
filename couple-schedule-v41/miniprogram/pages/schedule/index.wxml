@@ -1,0 +1,57 @@
+<view class="app-skin skin-{{skin}}">
+<view class="hero">
+  <view class="paw-bg" aria-hidden="true"></view>
+  <view class="people">
+    <view class="person"><view class="head-avatar cat-bg" data-owner="cat" bindtap="showToday" aria-role="button" aria-label="查看今日课表"><image wx:if="{{catAvatarIsImage}}" src="{{catAvatar}}" mode="aspectFill"/><text wx:else>{{catAvatar}}</text></view><text class="nick-cat">{{catName}}</text></view>
+    <text class="heart">♥</text>
+    <view class="person"><view class="head-avatar dog-bg" data-owner="dog" bindtap="showToday" aria-role="button" aria-label="查看今日课表"><image wx:if="{{dogAvatarIsImage}}" src="{{dogAvatar}}" mode="aspectFill"/><text wx:else>{{dogAvatar}}</text></view><text class="nick-dog">{{dogName}}</text></view>
+  </view>
+  <view class="schedule-controls"><view class="control-picker"><button class="control-trigger" data-menu="filter" bindtap="toggleMenu"><text class="control-icon">◉</text><text>谁的课表</text><b class="nick-{{filter}}">{{filterLabel}}</b><text class="control-chevron">⌄</text></button><view wx:if="{{filterMenuOpen}}" class="control-menu"><button data-value="both" bindtap="filter" class="{{filter==='both'?'on':''}}"><text>一起看</text><text class="menu-check">✓</text></button><button data-value="cat" bindtap="filter" class="{{filter==='cat'?'on':''}}"><text class="nick-cat">{{catName}}</text><text class="menu-check">✓</text></button><button data-value="dog" bindtap="filter" class="{{filter==='dog'?'on':''}}"><text class="nick-dog">{{dogName}}</text><text class="menu-check">✓</text></button></view></view><view class="control-picker"><button class="control-trigger" data-menu="layout" bindtap="toggleMenu"><text class="control-icon grid-icon">▦</text><text>视图</text><b>{{layoutLabel}}</b><text class="control-chevron">⌄</text></button><view wx:if="{{layoutMenuOpen}}" class="control-menu"><button data-layout="sections" bindtap="changeLayout" class="{{layout==='sections'?'on':''}}"><text>按节数</text><text class="menu-check">✓</text></button><button data-layout="timeline" bindtap="changeLayout" class="{{layout==='timeline'?'on':''}}"><text>按时间</text><text class="menu-check">✓</text></button></view></view></view>
+</view>
+<view wx:if="{{filterMenuOpen || layoutMenuOpen}}" class="menu-backdrop" bindtap="closeMenus"></view>
+<view class="week"><button bindtap="prev">‹</button><view><text class="title week-reset" bindtap="today" aria-role="button" aria-label="回到本周">第 {{week}} 周</text><text class="sub">{{weekRange}} · <text class="nick-cat">{{catName}}</text>{{catWeekLabel}} / <text class="nick-dog">{{dogName}}</text>{{dogWeekLabel}}</text></view><button bindtap="next">›</button></view>
+<view wx:if="{{layout==='sections'}}" class="weekend-hint">左右滑动查看周末 ›</view>
+<view wx:if="{{layout==='sections'}}" class="board-shell"><scroll-view scroll-x show-scrollbar="{{false}}" class="board"><view class="columns themed-background"><view class="col {{filter==='both'?'both':''}}" wx:for="{{columns}}" wx:key="day"><view class="head"><text>{{item.name}}</text><small>{{item.date}}</small><small wx:if="{{item.adjustmentLabel}}" class="adjustment-note">{{item.adjustmentLabel}}</small></view><view class="grid-area" style="height:{{item.height}}rpx"><view class="grid-row {{row.now?'now-row':''}}" style="{{row.style}}" wx:for="{{item.rows}}" wx:for-item="row" wx:key="section" data-day="{{item.day}}" data-section="{{row.section}}" bindtap="addPreset"></view><view class="rest-row" wx:for="{{item.restRows}}" wx:for-item="rest" wx:key="key" style="{{rest.style}}"></view><view class="course {{card.loc || card.teacher?'has-meta':''}} {{card.owner}} {{card.narrow?'narrow':''}} {{card.single?'single':''}}" wx:for="{{item.cards}}" wx:for-item="card" wx:key="key" data-id="{{card.id}}" catchtap="edit" style="{{card.style}}"><text class="course-name">{{card.displayName}}</text><text class="course-mark" aria-hidden="true">{{card.owner==='cat'?'🐾':'🦴'}}</text><small wx:if="{{!card.single && !card.loc && !card.teacher}}" class="course-section">{{card.sectionText}}</small><small wx:if="{{card.loc}}" class="course-loc">📍{{card.loc}}</small><small wx:if="{{card.teacher}}" class="course-teacher">👤{{card.teacher}}</small></view></view></view></view></scroll-view><view class="rest-label-layer" style="height:{{gridHeight}}rpx"><view class="rest-row rest-label" wx:for="{{restRows}}" wx:key="key" style="{{item.style}}"><text>{{item.label}}</text></view></view></view>
+<view wx:else class="timeline"><scroll-view scroll-x class="timeline-days"><view><button wx:for="{{timelineDays}}" wx:key="*this" data-day="{{index+1}}" bindtap="chooseDay" class="{{timelineDay===index+1?'on':''}}">{{item}}</button></view></scroll-view><view class="timeline-title">{{timelineDayName}} · {{timelineDate}}</view><view wx:if="{{timelineAdjustmentLabel}}" class="timeline-adjustment">{{timelineAdjustmentLabel}}</view><view wx:if="{{filter==='both'}}" class="shared"><text>两人都没课的共享时间</text><text>{{freeText}}</text></view><view class="lanes"><view class="lane" wx:if="{{filter!=='dog'}}"><view class="lane-name nick-cat">{{catName}}</view><view class="track"><view wx:if="{{filter==='both'}}" class="free-band" wx:for="{{freeBands}}" wx:key="key" style="{{item.style}}"></view><view class="event cat" wx:for="{{catItems}}" wx:key="key" data-id="{{item.id}}" catchtap="edit" style="{{item.style}}"><text>{{item.time}}</text><b>{{item.name}}</b><small wx:if="{{item.loc}}">{{item.loc}}</small><small wx:if="{{item.teacher}}">{{item.teacher}}</small></view></view></view><view wx:if="{{filter==='both'}}" class="time-axis-wrap"><view class="axis-title">时间</view><view class="time-axis"><view class="time-axis-line"></view><text class="time-tick" wx:for="{{timelineTicks}}" wx:key="value" style="{{item.style}}">{{item.label}}</text></view></view><view class="lane" wx:if="{{filter!=='cat'}}"><view class="lane-name nick-dog">{{dogName}}</view><view class="track"><view wx:if="{{filter==='both'}}" class="free-band" wx:for="{{freeBands}}" wx:key="key" style="{{item.style}}"></view><view class="event dog" wx:for="{{dogItems}}" wx:key="key" data-id="{{item.id}}" catchtap="edit" style="{{item.style}}"><text>{{item.time}}</text><b>{{item.name}}</b><small wx:if="{{item.loc}}">{{item.loc}}</small><small wx:if="{{item.teacher}}">{{item.teacher}}</small></view></view></view></view></view>
+<view wx:if="{{layout==='timeline' && (catItems.length || dogItems.length)}}" class="timeline-details">
+  <text class="timeline-details-title">当天课程详情</text>
+  <view wx:for="{{catItems}}" wx:key="key" class="timeline-detail-row cat" data-id="{{item.id}}" bindtap="edit">
+    <text class="timeline-detail-name">{{catName}} · {{item.name}} · {{item.time}}</text>
+    <text wx:if="{{item.loc}}">教室：{{item.loc}}</text>
+    <text wx:if="{{item.teacher}}">老师：{{item.teacher}}</text>
+  </view>
+  <view wx:for="{{dogItems}}" wx:key="key" class="timeline-detail-row dog" data-id="{{item.id}}" bindtap="edit">
+    <text class="timeline-detail-name">{{dogName}} · {{item.name}} · {{item.time}}</text>
+    <text wx:if="{{item.loc}}">教室：{{item.loc}}</text>
+    <text wx:if="{{item.teacher}}">老师：{{item.teacher}}</text>
+  </view>
+</view>
+<view class="hours-card"><text class="hours-title">本学期全部学时</text><view wx:for="{{hourRows}}" wx:key="owner" class="hours-person {{item.owner}}"><view class="hours-person-top"><view class="hours-identity"><text class="hours-name">{{item.name}}</text></view><view class="hours-total">{{item.total}}<text> 学时</text></view></view><view class="hours-progress" aria-label="{{item.name}}学时进度 {{item.percent}}%"><view class="hours-progress-fill" style="width:{{item.percent}}%"></view></view><view class="hours-bottom"><text>已完成 {{item.completed}} · 剩余 {{item.remaining}}</text><text>{{item.percent}}%</text></view></view></view>
+<view class="developer-contact">开发者联系方式：某书 拿铁不加冰 26504393686</view>
+<view wx:if="{{addMenuOpen}}" class="add-menu-backdrop" bindtap="closeAddMenu"></view>
+<view class="fab-actions" style="right:32rpx;right:calc(32rpx + constant(safe-area-inset-right));right:calc(32rpx + env(safe-area-inset-right));bottom:134rpx;bottom:calc(134rpx + constant(safe-area-inset-bottom));bottom:calc(134rpx + env(safe-area-inset-bottom));">
+  <view wx:if="{{addMenuOpen}}" class="add-popup">
+    <button bindtap="addManual">手动加课</button>
+    <button bindtap="addWithAI">AI 添加课程</button>
+    <button bindtap="openSharePoster">分享本周课表</button>
+  </view>
+  <button class="fab" bindtap="add" aria-expanded="{{addMenuOpen}}">＋ 加课</button>
+</view>
+
+<view wx:if="{{todayOpen}}" class="today-mask" bindtap="closeToday" catchtouchmove="stopPropagation">
+  <view class="today-dialog" catchtap="stopPropagation">
+    <view class="today-heading"><view class="today-title nick-{{todayOwner}}">{{todayName}}的今日课表</view><button class="today-close" bindtap="closeToday" aria-label="关闭">×</button></view>
+    <text class="today-date">{{todayLabel}}</text><text wx:if="{{todayAdjustmentLabel}}" class="today-adjustment">{{todayAdjustmentLabel}}</text>
+    <scroll-view scroll-y class="today-list">
+      <view wx:for="{{todayCourses}}" wx:key="key" class="today-course today-{{todayOwner}}">
+        <text class="today-time">{{item.time}} · {{item.sectionText}}</text>
+        <text class="today-course-name">{{item.name}}</text>
+        <text class="today-detail">地点：{{item.loc || '未填写'}}</text>
+        <text wx:if="{{item.teacher}}" class="today-detail">老师：{{item.teacher}}</text>
+      </view>
+      <view wx:if="{{!todayCourses.length}}" class="today-empty">今天没有课程</view>
+    </scroll-view>
+  </view>
+</view>
+</view>
+<message-note id="messageNote" />

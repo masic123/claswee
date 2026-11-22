@@ -1,0 +1,14 @@
+{
+  "envId": "YOUR_CLOUDBASE_ENV_ID",
+  "functionRoot": ".",
+  "functions": [
+    {
+      "name": "scheduleOcr",
+      "runtime": "Python3.11",
+      "handler": "index.main_handler",
+      "timeout": 50,
+      "memorySize": 3072,
+      "installDependency": false
+    }
+  ]
+}

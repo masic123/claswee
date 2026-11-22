@@ -1,0 +1,14 @@
+{
+  "envId": "YOUR_CLOUDBASE_ENV_ID",
+  "functionRoot": ".",
+  "functions": [
+    {
+      "name": "scheduleImageImport",
+      "runtime": "Nodejs20.19",
+      "handler": "index.main",
+      "timeout": 60,
+      "memorySize": 256,
+      "installDependency": true
+    }
+  ]
+}

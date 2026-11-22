@@ -1,0 +1,16 @@
+<view class="tabbar skin-{{skin}}" style="padding-bottom:constant(safe-area-inset-bottom);padding-bottom:env(safe-area-inset-bottom);">
+  <view class="tabbar-inner">
+    <view class="tab tab-{{item.icon}} {{item.primary?'primary':''}} {{selected===index?'active':''}}" wx:for="{{tabs}}" wx:key="pagePath" data-index="{{index}}" bindtap="switchTab" hover-class="tab-pressed" hover-stay-time="90">
+      <view class="icon-shell icon-{{item.icon}}">
+        <view class="shine"></view>
+        <view wx:if="{{item.icon==='schedule'}}" class="calendar">
+          <view class="calendar-top"></view><view class="calendar-ring ring-left"></view><view class="calendar-ring ring-right"></view>
+          <view class="calendar-grid"><view></view><view></view><view></view><view></view><view></view><view></view></view><text class="calendar-heart">♥</text>
+        </view>
+        <view wx:elif="{{item.icon==='settings'}}" class="gear"><text>⚙︎</text></view>
+        <view wx:else class="cloud"><text>☁︎</text></view>
+      </view>
+      <text class="tab-label">{{item.text}}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,150 @@
+/* 四套小程序皮肤。颜色只作用于页面；课表数据与同步协议不变。 */
+.skin-blush{
+  --skin-bg:#fff8fb;--skin-card:#fff;--skin-text:#513e4b;--skin-muted:#927e89;--skin-line:#f1dfe7;
+  --skin-cat:#bd4f78;--skin-cat-ink:#a8446b;--skin-cat-soft:#fff0f6;--skin-dog:#2874a2;--skin-dog-ink:#2573a8;--skin-dog-soft:#eef8ff;
+  --skin-hero:linear-gradient(135deg,#ffe0ea,#fff3f7 48%,#e6f3fc);--skin-grid:#fffdfd;
+  --skin-cat-course:linear-gradient(145deg,#ffd5e4,#ff9dbe);--skin-dog-course:linear-gradient(145deg,#d2efff,#7fc3ec);
+  --skin-input:#fff8fb;--skin-surface:#fffafd;--skin-free:#edfff5;--skin-free-ink:#357458;
+  --skin-on-cat:#fff;--skin-on-dog:#fff;--skin-shadow:0 calc(8 * var(--rpx)) calc(25 * var(--rpx)) rgba(236,146,180,.12);
+}
+.skin-mint{
+  --skin-bg:#f2f8f4;--skin-card:#fff;--skin-text:#2b403c;--skin-muted:#627a73;--skin-line:#dceae3;
+  --skin-cat:#b9533f;--skin-cat-ink:#713d34;--skin-cat-soft:#fcebe5;--skin-dog:#2e8177;--skin-dog-ink:#205a53;--skin-dog-soft:#e2f4ed;
+  --skin-hero:linear-gradient(135deg,#dcf1e7,#f4faf5 48%,#fcece5);--skin-grid:#fafdfb;
+  --skin-cat-course:linear-gradient(145deg,#f7d3c5,#ebad99);--skin-dog-course:linear-gradient(145deg,#c8ebdd,#91d0bd);
+  --skin-input:#fbfefc;--skin-surface:#f8fcf9;--skin-free:#e7f5e7;--skin-free-ink:#326d4c;
+  --skin-on-cat:#fff;--skin-on-dog:#fff;--skin-shadow:0 calc(8 * var(--rpx)) calc(25 * var(--rpx)) rgba(54,117,102,.10);
+}
+.skin-sun{
+  --skin-bg:#fff9ed;--skin-card:#fffdf8;--skin-text:#493d2c;--skin-muted:#806f56;--skin-line:#ede1c8;
+  --skin-cat:#9e651e;--skin-cat-ink:#68441c;--skin-cat-soft:#fff0cf;--skin-dog:#526d98;--skin-dog-ink:#344c72;--skin-dog-soft:#eaf0fa;
+  --skin-hero:linear-gradient(135deg,#fce6ad,#fff3d7 48%,#e7eaf5);--skin-grid:#fffcf4;
+  --skin-cat-course:linear-gradient(145deg,#f8dfa8,#e6b968);--skin-dog-course:linear-gradient(145deg,#dce5f3,#a9bcd9);
+  --skin-input:#fffefa;--skin-surface:#fffcf5;--skin-free:#e7f1de;--skin-free-ink:#496b45;
+  --skin-on-cat:#fff;--skin-on-dog:#fff;--skin-shadow:0 calc(8 * var(--rpx)) calc(25 * var(--rpx)) rgba(127,93,40,.10);
+}
+.skin-night{
+  --skin-bg:#0d172b;--skin-card:#17243d;--skin-text:#eef3ff;--skin-muted:#acbbd2;--skin-line:#2b3a57;
+  --skin-cat:#c29bf8;--skin-cat-ink:#f2e8ff;--skin-cat-soft:#3b2f58;--skin-dog:#6cd5cc;--skin-dog-ink:#d7fffa;--skin-dog-soft:#24484f;
+  --skin-hero:linear-gradient(135deg,#27335a,#1a2b4a 52%,#163d4a);--skin-grid:#17243b;
+  --skin-cat-course:linear-gradient(145deg,#72539d,#5b457f);--skin-dog-course:linear-gradient(145deg,#267d80,#1b606d);
+  --skin-input:#1b2b47;--skin-surface:#1b2b47;--skin-free:#1b403f;--skin-free-ink:#b1e9b8;
+  --skin-on-cat:#241b36;--skin-on-dog:#18373d;--skin-shadow:0 calc(8 * var(--rpx)) calc(25 * var(--rpx)) rgba(1,8,26,.25);
+}
+
+.app-skin{min-height:100vh;box-sizing:border-box;background:var(--skin-bg);color:var(--skin-text);padding:calc(1 * var(--rpx)) 0 calc(calc(122 * var(--rpx)) + var(--safe-bottom))}
+.app-skin .card{background:var(--skin-card);color:var(--skin-text);box-shadow:var(--skin-shadow)}
+.app-skin .hint,.app-skin .notice,.app-skin .sub,.app-skin .last,.app-skin .import-description,.app-skin .import-option-hint{color:var(--skin-muted)}
+.app-skin .nick-cat{color:var(--skin-cat-ink)!important}
+.app-skin .nick-dog{color:var(--skin-dog-ink)!important}
+.app-skin .hero{background:var(--skin-hero)}
+.app-skin .head-avatar.cat-bg,.app-skin .avatar{background:var(--skin-cat-soft);border-color:var(--skin-cat)}
+.app-skin .head-avatar.dog-bg,.app-skin .avatar.dog-bg{background:var(--skin-dog-soft);border-color:var(--skin-dog)}
+.app-skin .heart{color:var(--skin-cat)}
+.app-skin .control-trigger,.app-skin .control-menu,.app-skin .week button,.app-skin .timeline-days button{background:var(--skin-card);color:var(--skin-text);box-shadow:var(--skin-shadow)}
+.app-skin .control-trigger b,.app-skin .control-icon,.app-skin .control-menu .menu-check{color:var(--skin-cat)}
+.app-skin .grid-icon{color:var(--skin-dog)}
+.app-skin .control-chevron,.app-skin .control-menu button{color:var(--skin-muted)}
+.app-skin .control-menu{border-color:var(--skin-line)}
+.app-skin .control-menu button.on{background:var(--skin-cat-soft);color:var(--skin-cat-ink)}
+.app-skin .timeline-days .on,.app-skin .fab{background:var(--skin-cat);color:var(--skin-on-cat);box-shadow:var(--skin-shadow)}
+.app-skin .columns{background:var(--skin-grid)}
+.app-skin .themed-background{position:relative;overflow:hidden}
+.app-skin .themed-background .col{position:relative;z-index:1;background:transparent}
+.app-skin .col,.app-skin .col:last-child,.app-skin .head{border-color:var(--skin-line)}
+.app-skin .themed-background .head{background:var(--skin-surface);color:var(--skin-text)}
+.app-skin .themed-background .grid-area{background:transparent}
+.app-skin .grid-row{border-color:var(--skin-line);color:var(--skin-muted)}
+.app-skin .grid-row.now-row{background:var(--skin-cat-soft)}
+.app-skin .course.cat,.app-skin .event.cat{background:var(--skin-cat-course);color:var(--skin-cat-ink)}
+.app-skin .course.dog,.app-skin .event.dog{background:var(--skin-dog-course);color:var(--skin-dog-ink)}
+.app-skin .rest-row{background:var(--skin-cat-soft);border-color:var(--skin-line);color:var(--skin-muted)}
+.app-skin .shared{background:var(--skin-free);color:var(--skin-free-ink)}
+.app-skin .track{background:repeating-linear-gradient(to bottom,var(--skin-card) 0,var(--skin-card) calc(74 * var(--rpx)),var(--skin-line) calc(76 * var(--rpx)))}
+.app-skin .free-band{background:var(--skin-free);border-color:var(--skin-free-ink)}
+.app-skin .time-axis-line{background:var(--skin-line)}
+.app-skin .time-tick{background:var(--skin-bg);color:var(--skin-muted)}
+.app-skin .hours-card,.app-skin .today-dialog,.app-skin .add-sheet,.app-skin .add-popup,.app-skin .sheet{background:var(--skin-card);border-color:var(--skin-line);color:var(--skin-text);box-shadow:var(--skin-shadow)}
+.app-skin .hours-title,.app-skin .today-course-name,.app-skin .import-option-title{color:var(--skin-text)}
+.app-skin .timeline-details{background:var(--skin-card);border-color:var(--skin-line);color:var(--skin-text)}
+.app-skin .timeline-details-title{color:var(--skin-text)}
+.app-skin .timeline-detail-row.cat{background:var(--skin-cat-soft);color:var(--skin-cat-ink)}
+.app-skin .timeline-detail-row.dog{background:var(--skin-dog-soft);color:var(--skin-dog-ink)}
+.app-skin .hours-person.cat,.app-skin .today-course.today-cat,.app-skin .add-choice{background:var(--skin-cat-soft);border-color:var(--skin-line)}
+.app-skin .hours-person.dog,.app-skin .today-course.today-dog,.app-skin .add-choice.image{background:var(--skin-dog-soft);border-color:var(--skin-line)}
+.app-skin .hours-person.cat .hours-name,.app-skin .hours-person.cat .hours-total,.app-skin .hours-person.cat .hours-bottom span:last-child{color:var(--skin-cat-ink)}
+.app-skin .hours-person.dog .hours-name,.app-skin .hours-person.dog .hours-total,.app-skin .hours-person.dog .hours-bottom span:last-child{color:var(--skin-dog-ink)}
+.app-skin .hours-person.cat .hours-progress{background:var(--skin-cat-soft)}
+.app-skin .hours-person.dog .hours-progress{background:var(--skin-dog-soft)}
+.app-skin .hours-person.cat .hours-progress-fill{background:var(--skin-cat)}
+.app-skin .hours-person.dog .hours-progress-fill{background:var(--skin-dog)}
+.app-skin .hours-bottom,.app-skin .today-date,.app-skin .today-time,.app-skin .today-detail,.app-skin .today-empty,.app-skin .add-choice small{color:var(--skin-muted)}
+.app-skin .today-close,.app-skin .add-popup button,.app-skin .timeline-adjustment,.app-skin .today-adjustment{background:var(--skin-cat-soft);color:var(--skin-cat-ink)}
+.app-skin .add-popup button+button{border-color:var(--skin-line)}
+
+/* 设置、加课、同步和截图导入共用的表单颜色。 */
+.app-skin .card input,.app-skin .text-input,.app-skin .room-card input,.app-skin .course-review input,
+.app-skin .slot .mini-picker div,.app-skin .custom .mini-picker div,.app-skin .pick-row .mini-picker,.app-skin .review-field .mini-picker,
+.app-skin .section .mini-picker div{background:var(--skin-input);border-color:var(--skin-line);color:var(--skin-text)}
+.app-skin .form-placeholder,.app-skin .field-label,.app-skin .extra{color:var(--skin-muted)}
+.app-skin .row,.app-skin .section,.app-skin .adjustment-item,.app-skin .course-review{border-color:var(--skin-line)}
+.app-skin .row .mini-picker div,.app-skin .adjustment-item-date,.app-skin .adjustment-item-detail{color:var(--skin-text)}
+.app-skin .wechat-avatar{background:linear-gradient(145deg,var(--skin-cat-soft),var(--skin-dog-soft))}
+.app-skin .choice button,.app-skin .owners button,.app-skin .modes,.app-skin .custom{background:var(--skin-surface);color:var(--skin-text)}
+.app-skin .modes button{color:var(--skin-muted)}
+.app-skin .choice .on,.app-skin .modes .on{background:var(--skin-cat);color:var(--skin-on-cat)}
+.app-skin .choice button.on.cat,.app-skin .owners button.on.cat{background:var(--skin-cat-soft)!important;color:var(--skin-cat-ink)}
+.app-skin .choice button.on.dog,.app-skin .owners button.on.dog{background:var(--skin-dog-soft)!important;color:var(--skin-dog-ink)}
+.app-skin .wechat-choose,.app-skin .soft,.app-skin .add-slot,.app-skin .file-actions button,.app-skin .import-back,
+.app-skin .image-picker,.app-skin .leave{background:var(--skin-cat-soft);color:var(--skin-cat-ink)}
+.app-skin .album-choose{background:var(--skin-dog-soft);color:var(--skin-dog-ink)}
+.app-skin .upload,.app-skin .save,.app-skin .primary,.app-skin .actions button,.app-skin .recognize,
+.app-skin .confirm,.app-skin .import-primary{background:var(--skin-cat);color:var(--skin-on-cat)}
+.app-skin .section button,.app-skin .remove,.app-skin .delete,.app-skin .danger button,
+.app-skin .adjustment-item button,.app-skin .review-head button{background:var(--skin-cat-soft);color:var(--skin-cat-ink)}
+.app-skin .connected{background:linear-gradient(135deg,var(--skin-cat-soft),var(--skin-dog-soft))}
+.app-skin .connected-label,.app-skin .room-code,.app-skin .status,.app-skin .file-status{color:var(--skin-text)}
+.app-skin .badge{background:var(--skin-free);color:var(--skin-free-ink)}
+.app-skin .import-option,.app-skin .preview{background:var(--skin-surface);border-color:var(--skin-line)}
+
+/* 设置页的实物预览，四款在任何皮肤中都保留自身颜色。 */
+.skin-card{padding-bottom:calc(30 * var(--rpx))}
+.skin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(16 * var(--rpx));margin-top:calc(20 * var(--rpx))}
+.skin-option{display:block;box-sizing:border-box;min-width:0;margin:0;padding:calc(12 * var(--rpx));border:calc(3 * var(--rpx)) solid var(--skin-line);border-radius:calc(22 * var(--rpx));background:var(--skin-card);color:var(--skin-text);font-size:calc(24 * var(--rpx));text-align:left;line-height:1.3}
+.skin-option::after{border:0}
+.skin-option.on{border-color:var(--skin-cat);box-shadow:0 0 0 calc(3 * var(--rpx)) var(--skin-cat-soft)}
+.skin-option>span{display:block;padding:calc(11 * var(--rpx)) calc(5 * var(--rpx)) calc(2 * var(--rpx));font-weight:800}
+.skin-mini{position:relative;height:calc(116 * var(--rpx));border-radius:calc(14 * var(--rpx));overflow:hidden;background:var(--preview-bg);border:calc(1 * var(--rpx)) solid var(--preview-line)}
+.skin-mini::before{content:'';position:absolute;left:calc(16 * var(--rpx));right:calc(16 * var(--rpx));top:calc(15 * var(--rpx));bottom:calc(13 * var(--rpx));border-radius:calc(10 * var(--rpx));background:var(--preview-card);box-shadow:0 calc(4 * var(--rpx)) calc(12 * var(--rpx)) rgba(0,0,0,.07)}
+.mini-head{position:absolute;left:calc(16 * var(--rpx));right:calc(16 * var(--rpx));top:calc(15 * var(--rpx));height:calc(25 * var(--rpx));border-radius:calc(10 * var(--rpx)) calc(10 * var(--rpx)) 0 0;background:var(--preview-head);display:flex;align-items:center;gap:calc(7 * var(--rpx));padding-left:calc(15 * var(--rpx))}
+.mini-head div{width:calc(7 * var(--rpx));height:calc(7 * var(--rpx));border-radius:50%;background:var(--preview-dot)}
+.mini-cat,.mini-dog{position:absolute;top:calc(54 * var(--rpx));width:31%;height:calc(28 * var(--rpx));border-radius:calc(7 * var(--rpx))}
+.mini-cat{left:24%;background:var(--preview-cat)}
+.mini-dog{left:59%;background:var(--preview-dog)}
+.preview-blush{--preview-bg:#fff3f8;--preview-card:#fff;--preview-head:#ffdce8;--preview-dot:#f28cae;--preview-cat:#ffa6c2;--preview-dog:#9bd2f4;--preview-line:#f4dfe8}
+.preview-mint{--preview-bg:#eef8f2;--preview-card:#fff;--preview-head:#d5ede5;--preview-dot:#3c9b90;--preview-cat:#e5a08b;--preview-dog:#71c4b2;--preview-line:#d8e8e1}
+.preview-sun{--preview-bg:#fff5dd;--preview-card:#fffdf7;--preview-head:#f9e4b3;--preview-dot:#b27a32;--preview-cat:#e3b867;--preview-dog:#9bb1d2;--preview-line:#eadfc8}
+.preview-night{--preview-bg:#0c1730;--preview-card:#172541;--preview-head:#26395b;--preview-dot:#ad91e9;--preview-cat:#785dae;--preview-dog:#297d85;--preview-line:#334462}
+
+/* 夜间款降低背景干扰，表单和课程卡片维持清晰边界。 */
+.skin-mint .paw-bg,.skin-sun .paw-bg{opacity:.22;filter:grayscale(1)}
+.skin-night .paw-bg{opacity:.55;background-image:radial-gradient(circle,rgba(227,214,255,.7) calc(2 * var(--rpx)),transparent calc(3 * var(--rpx))),radial-gradient(circle,rgba(137,221,216,.55) calc(2 * var(--rpx)),transparent calc(3 * var(--rpx)));background-size:calc(114 * var(--rpx)) calc(86 * var(--rpx)),calc(166 * var(--rpx)) calc(122 * var(--rpx))}
+.skin-night .course.cat,.skin-night .course.dog,.skin-night .event.cat,.skin-night .event.dog{box-shadow:inset 0 calc(2 * var(--rpx)) 0 rgba(255,255,255,.12),0 calc(5 * var(--rpx)) calc(14 * var(--rpx)) rgba(0,0,0,.23)}
+.skin-night .today-title,.skin-night .today-course-name,.skin-night .skin-option>span{color:var(--skin-text)}
+.skin-night .skin-mini{border-color:var(--preview-line)}
+
+.mini-page{background:#fff8fb;color:#513e4b;font-family:-apple-system,BlinkMacSystemFont,"Microsoft YaHei","PingFang SC",sans-serif;padding-bottom:calc(calc(122 * var(--rpx)) + var(--safe-bottom));box-sizing:border-box}button,input,.mini-picker{font-family:-apple-system,BlinkMacSystemFont,"Microsoft YaHei","PingFang SC",sans-serif}button{font-size:calc(28 * var(--rpx))}.card{background:#fff;border-radius:calc(28 * var(--rpx));margin:calc(24 * var(--rpx));padding:calc(28 * var(--rpx));box-shadow:0 calc(8 * var(--rpx)) calc(25 * var(--rpx)) rgba(236,146,180,.12)}
+
+/* 课表页下拉控件 */
+.hero{position:relative;z-index:12}.schedule-controls{display:flex;align-items:center;justify-content:center;gap:calc(12 * var(--rpx));margin-top:calc(12 * var(--rpx))}.control-picker{position:relative}.control-trigger{display:flex;align-items:center;gap:calc(7 * var(--rpx));height:calc(58 * var(--rpx));padding:0 calc(18 * var(--rpx));border-radius:calc(999 * var(--rpx));background:rgba(255,255,255,.88);color:#584550;font-size:calc(21 * var(--rpx));font-weight:700;box-shadow:0 calc(4 * var(--rpx)) calc(13 * var(--rpx)) rgba(124,84,103,.10)}.control-trigger b{max-width:calc(118 * var(--rpx));overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#b34d75}.control-icon{color:#e56f9b}.grid-icon{color:#5faee3}.control-chevron{color:#927e89;font-size:calc(22 * var(--rpx))}.control-menu{position:absolute;top:calc(66 * var(--rpx));left:50%;z-index:14;width:calc(220 * var(--rpx));padding:calc(8 * var(--rpx));transform:translateX(-50%);border:calc(1 * var(--rpx)) solid #f0dce5;border-radius:calc(18 * var(--rpx));background:rgba(255,255,255,.98);box-shadow:0 calc(14 * var(--rpx)) calc(34 * var(--rpx)) rgba(91,57,74,.17)}.control-menu button{display:flex;align-items:center;justify-content:space-between;width:100%;height:calc(62 * var(--rpx));padding:0 calc(18 * var(--rpx));border-radius:calc(13 * var(--rpx));background:transparent;color:#806c76;font-size:calc(23 * var(--rpx));text-align:left}.control-menu button.on{background:linear-gradient(90deg,#fff0f6,#eef8ff);color:#a8446b;font-weight:800}.control-menu .menu-check{color:#ef76a4;opacity:0}.control-menu button.on .menu-check{opacity:1}.menu-backdrop{position:fixed;z-index:11;inset:0;background:transparent}
+
+
+/* 男女课表中轴时间 */
+.lanes{align-items:flex-start}.lane-name,.axis-title{height:calc(34 * var(--rpx));line-height:calc(34 * var(--rpx));margin-bottom:calc(7 * var(--rpx))}.time-axis-wrap{width:calc(66 * var(--rpx));flex:none}.axis-title{text-align:center;color:#9b8791;font-size:calc(18 * var(--rpx))}.time-axis{position:relative;height:calc(760 * var(--rpx))}.time-axis-line{position:absolute;left:50%;top:0;bottom:0;width:calc(2 * var(--rpx));transform:translateX(-50%);background:#ead7df}.time-tick{position:absolute;left:50%;z-index:2;transform:translate(-50%,-50%);padding:calc(3 * var(--rpx)) calc(5 * var(--rpx));border-radius:calc(7 * var(--rpx));background:#fff8fb;color:#8d7782;font-size:calc(18 * var(--rpx));line-height:1;white-space:nowrap}
+
+/* Nickname colors stay consistent, including selected owner controls. */
+.nick-cat{color:#d94f8a!important}
+.nick-dog{color:#257fbd!important}
+.choice button.on.cat,.owners button.on.cat{background:#ffe3ee!important}
+.choice button.on.dog,.owners button.on.dog{background:#dff1ff!important}
+.mini-page{background:transparent;padding-bottom:0}

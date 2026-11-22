@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/schedule/index",
+    "pages/add/index",
+    "pages/settings/index",
+    "pages/sync/index",
+    "pages/image-import/index",
+    "pages/share-poster/index",
+    "pages/course-assistant/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "claswee",
+    "navigationBarBackgroundColor": "#fff6fa",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#fff8fb"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#8d7b85",
+    "selectedColor": "#ef76a4",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/settings/index",
+        "text": "设置"
+      },
+      {
+        "pagePath": "pages/schedule/index",
+        "text": "课表"
+      },
+      {
+        "pagePath": "pages/sync/index",
+        "text": "同步"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": { "message-note": "/components/message-note/index" }
+}

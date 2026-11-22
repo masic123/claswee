@@ -1,0 +1,32 @@
+<view class="app-skin skin-{{skin}}">
+<view class="card room-card">
+  <view class="title">安全房间</view>
+  <view wx:if="{{invitedRoom}}" class="invite-banner"><text>对方邀请你加入 {{invitedRoom}}</text><button bindtap="acceptInvite" disabled="{{busy}}">切换并填写密码</button></view>
+  <view wx:if="{{connected}}" class="connected"><view><text class="connected-label">当前房间</text><text class="room-code">{{room}}</text></view><text class="badge">已连接</text></view>
+  <block wx:else>
+    <view class="modes"><button data-mode="join" bindtap="mode" class="{{mode==='join'?'on':''}}">加入房间</button><button data-mode="create" bindtap="mode" class="{{mode==='create'?'on':''}}">创建房间</button></view>
+    <input maxlength="64" placeholder="房间码：例如 love2026" value="{{room}}" data-key="room" bindinput="input" disabled="{{busy}}" />
+    <block wx:if="{{!passwordEditor}}">
+    <input password maxlength="72" placeholder="房间密码（至少6位）" value="{{password}}" data-key="password" bindinput="input" />
+    <input wx:if="{{mode==='create'}}" password maxlength="72" placeholder="再次输入密码" value="{{confirmPassword}}" data-key="confirmPassword" bindinput="input" />
+    <button class="primary" loading="{{busy}}" disabled="{{busy}}" bindtap="enterRoom">{{mode==='create'?'创建并上传当前课表':'验证密码并加入'}}</button>
+    </block>
+  </block>
+  <button class="leave" bindtap="togglePasswordEditor" disabled="{{busy}}">{{passwordEditor?'取消修改密码':'修改房间密码'}}</button>
+  <view wx:if="{{passwordEditor}}">
+    <input password maxlength="72" placeholder="旧密码" value="{{oldPassword}}" data-key="oldPassword" bindinput="input" disabled="{{busy}}" />
+    <input password maxlength="72" placeholder="新密码（6–72位）" value="{{newPassword}}" data-key="newPassword" bindinput="input" disabled="{{busy}}" />
+    <input password maxlength="72" placeholder="再次输入新密码" value="{{newPasswordConfirm}}" data-key="newPasswordConfirm" bindinput="input" disabled="{{busy}}" />
+    <button class="primary" bindtap="changePassword" loading="{{busy}}" disabled="{{busy}}">验证旧密码并修改</button>
+  </view>
+  <text class="status">{{status}}</text><text wx:if="{{connected}}" class="last">上次同步：{{lastSync}}</text>
+  <view wx:if="{{connected}}" class="actions"><button bindtap="push">上传课表</button><button bindtap="pull">拉取课表</button></view>
+  <button wx:if="{{connected}}" class="invite-button" open-type="share" data-share-kind="room-invite">邀请对方一起看课表 ↗</button>
+  <text wx:if="{{connected}}" class="invite-note">密码请另行告诉对方。</text>
+  <button wx:if="{{connected}}" class="leave" bindtap="leave" disabled="{{busy}}">退出当前房间</button>
+</view>
+<view class="card message-card"><view class="message-heading"><text class="message-heart">♡</text><view><view class="title">给对方留个言</view></view></view><button class="invite-button" bindtap="openMessage" disabled="{{!connected}}">写一张小纸条</button><text wx:if="{{!connected}}" class="invite-note">加入同一个房间后，就可以互相留言。</text></view>
+<view class="card"><view class="title">分享我们的时间</view><button class="invite-button" bindtap="openSharePoster">生成周课表分享图</button></view>
+<view class="card"><view class="title">文件同步（备用方式）</view><view class="file-actions"><button bindtap="exportJson">导出同步文件</button><button bindtap="importFile">导入同步文件</button><button bindtap="exportCsv">导出表格 CSV</button></view><text wx:if="{{fileStatus}}" class="file-status">{{fileStatus}}</text></view>
+</view>
+<message-note id="messageNote" compose="{{showMessageComposer}}" bindclose="closeMessage" />

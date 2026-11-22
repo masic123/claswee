@@ -1,0 +1,225 @@
+/* 课表皮肤：色彩只影响界面，不影响课程归属或同步数据。 */
+
+/* 皮肤选择器 */
+.skin-card{padding-bottom:16px}
+.skin-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.skin-option{
+  position:relative;display:block;min-width:0;padding:7px;border:2px solid var(--line);
+  border-radius:16px;background:var(--card);cursor:pointer;
+  transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+.skin-option:active{transform:scale(.97)}
+.skin-option.on{border-color:var(--cat);box-shadow:0 0 0 2px var(--cat-soft)}
+.skin-option:has(input:focus-visible){outline:2px solid var(--cat);outline-offset:2px}
+.skin-option input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.skin-preview{
+  position:relative;display:block;height:67px;overflow:hidden;border-radius:10px;
+  background:var(--preview-bg);border:1px solid var(--preview-line);
+}
+.skin-preview::before{
+  content:'';position:absolute;left:11px;top:12px;right:10px;bottom:8px;
+  border-radius:6px;background:var(--preview-card);box-shadow:0 2px 7px rgba(0,0,0,.07);
+}
+.skin-preview-head{position:absolute;left:11px;right:10px;top:12px;height:12px;border-radius:6px 6px 0 0;background:var(--preview-head)}
+.skin-preview-head::after{content:'';position:absolute;left:12px;top:4px;width:5px;height:5px;border-radius:50%;background:var(--preview-dot);box-shadow:10px 0 0 var(--preview-dot),20px 0 0 var(--preview-dot)}
+.skin-preview-cat,.skin-preview-dog{position:absolute;top:30px;width:34%;height:14px;border-radius:4px}
+.skin-preview-cat{left:23%;background:var(--preview-cat)}
+.skin-preview-dog{left:60%;background:var(--preview-dog)}
+.skin-preview-line{position:absolute;left:18px;top:29px;width:8px;height:22px;border-radius:2px;background:var(--preview-line)}
+.skin-label{display:flex;align-items:baseline;justify-content:space-between;gap:3px;padding:8px 3px 2px;white-space:nowrap}
+.skin-label strong{font-size:12px;line-height:1.2;color:var(--text)}
+.skin-label small{font-size:9px;color:var(--text-2)}
+.skin-option[data-preview-skin="blush"]{--preview-bg:#fff3f8;--preview-card:#fff;--preview-head:#ffdce8;--preview-dot:#f28cae;--preview-cat:#ffa6c2;--preview-dog:#9bd2f4;--preview-line:#f4dfe8}
+.skin-option[data-preview-skin="mint"]{--preview-bg:#eef8f2;--preview-card:#fff;--preview-head:#d5ede5;--preview-dot:#3c9b90;--preview-cat:#e5a08b;--preview-dog:#71c4b2;--preview-line:#d8e8e1}
+.skin-option[data-preview-skin="sun"]{--preview-bg:#fff5dd;--preview-card:#fffdf7;--preview-head:#f9e4b3;--preview-dot:#b27a32;--preview-cat:#e3b867;--preview-dog:#9bb1d2;--preview-line:#eadfc8}
+.skin-option[data-preview-skin="night"]{--preview-bg:#0c1730;--preview-card:#172541;--preview-head:#26395b;--preview-dot:#ad91e9;--preview-cat:#785dae;--preview-dog:#297d85;--preview-line:#334462}
+
+/* 三套新增皮肤共享同一组界面语义色。 */
+html[data-skin="mint"]{
+  --cat:#B9533F;--cat-2:#F0B5A3;--cat-soft:#FCEBE5;--cat-ink:#713D34;
+  --dog:#2E8177;--dog-2:#8BC8B7;--dog-soft:#E2F4ED;--dog-ink:#205A53;
+  --skin-on-accent:#FFFFFF;--skin-on-dog:#FFFFFF;
+  --bg:#F2F8F4;--card:#FFFFFF;--line:#DDEBE4;--text:#2B403C;--text-2:#627A73;
+  --shadow:0 5px 18px rgba(54,117,102,.10);
+  --skin-hero:linear-gradient(135deg,#DCF1E7,#F4FAF5 48%,#FCECE5);
+  --skin-surface:#FAFDFB;--skin-wash:#EAF6F0;--skin-today:#E2F3EB;
+  --skin-cat:linear-gradient(160deg,#F7D3C5,#EBAD99);--skin-dog:linear-gradient(160deg,#C8EBDD,#91D0BD);
+  --skin-cat-event:linear-gradient(108deg,#FFFAF8,#FBE7DE,#F3C8B9);
+  --skin-dog-event:linear-gradient(108deg,#F8FEFA,#E1F4EB,#BAE3D3);
+  --skin-bar:rgba(255,255,255,.96);--skin-free:#E7F5E7;--skin-free-ink:#326D4C;
+  --skin-field:#FBFEFC;--skin-muted:#EFF6F1;--skin-grid:#C7DCD2;
+}
+html[data-skin="sun"]{
+  --cat:#9E651E;--cat-2:#E6B768;--cat-soft:#FFF0CF;--cat-ink:#68441C;
+  --dog:#526D98;--dog-2:#AFC3DF;--dog-soft:#EAF0FA;--dog-ink:#344C72;
+  --skin-on-accent:#FFFFFF;--skin-on-dog:#FFFFFF;
+  --bg:#FFF9ED;--card:#FFFDF8;--line:#EDE1C8;--text:#493D2C;--text-2:#806F56;
+  --shadow:0 5px 18px rgba(127,93,40,.10);
+  --skin-hero:linear-gradient(135deg,#FCE6AD,#FFF3D7 48%,#E7EAF5);
+  --skin-surface:#FFFCF4;--skin-wash:#FFF1D6;--skin-today:#FFEAC0;
+  --skin-cat:linear-gradient(160deg,#F8DFA8,#E6B968);--skin-dog:linear-gradient(160deg,#DCE5F3,#A9BCD9);
+  --skin-cat-event:linear-gradient(108deg,#FFFCF5,#FFF0CB,#F2D391);
+  --skin-dog-event:linear-gradient(108deg,#FBFCFF,#ECF1F9,#CCD9EA);
+  --skin-bar:rgba(255,253,248,.97);--skin-free:#E7F1DE;--skin-free-ink:#496B45;
+  --skin-field:#FFFEFA;--skin-muted:#F7F0E2;--skin-grid:#D9CBAF;
+}
+html[data-skin="night"]{
+  color-scheme:dark;
+  --cat:#C29BF8;--cat-2:#AC83EC;--cat-soft:#3B2F58;--cat-ink:#F2E8FF;
+  --dog:#6CD5CC;--dog-2:#4DBDB8;--dog-soft:#24484F;--dog-ink:#D7FFFA;
+  --skin-on-accent:#241B36;--skin-on-dog:#18373D;
+  --bg:#0D172B;--card:#17243D;--line:#2B3A57;--text:#EEF3FF;--text-2:#ACBBD2;
+  --shadow:0 8px 24px rgba(1,8,26,.26);
+  --skin-hero:linear-gradient(135deg,#27335A,#1A2B4A 52%,#163D4A);
+  --skin-surface:#17243B;--skin-wash:#273654;--skin-today:#2A385A;
+  --skin-cat:linear-gradient(160deg,#72539D,#5B457F);--skin-dog:linear-gradient(160deg,#267D80,#1B606D);
+  --skin-cat-event:linear-gradient(108deg,#413157,#584078,#76599D);
+  --skin-dog-event:linear-gradient(108deg,#193D50,#215C65,#287C7E);
+  --skin-bar:rgba(18,31,53,.97);--skin-free:#1B403F;--skin-free-ink:#B1E9B8;
+  --skin-field:#1B2B47;--skin-muted:#22314E;--skin-grid:#45536D;
+}
+
+html[data-skin]:not([data-skin="blush"]) body{background:var(--bg)}
+html[data-skin]:not([data-skin="blush"]) .hero{background:var(--skin-hero);box-shadow:var(--shadow)}
+html[data-skin]:not([data-skin="blush"]) .paw-bg{opacity:.16;filter:grayscale(1)}
+html[data-skin]:not([data-skin="blush"]) .avatar{background:var(--card);box-shadow:0 3px 10px rgba(0,0,0,.1)}
+html[data-skin]:not([data-skin="blush"]) .control-trigger,
+html[data-skin]:not([data-skin="blush"]) .control-menu{background:var(--skin-bar);border-color:var(--line);color:var(--text);box-shadow:var(--shadow)}
+html[data-skin]:not([data-skin="blush"]) .couple-icon{background:linear-gradient(90deg,var(--cat-soft),var(--dog-soft))}
+html[data-skin]:not([data-skin="blush"]) .couple-person.girl::after{background:var(--cat)}
+html[data-skin]:not([data-skin="blush"]) .couple-person.boy::after{background:var(--dog)}
+html[data-skin]:not([data-skin="blush"]) .control-menu button:hover,
+html[data-skin]:not([data-skin="blush"]) .control-menu button.on{background:var(--cat-soft);color:var(--cat-ink)}
+html[data-skin]:not([data-skin="blush"]) .view-switch button[data-view="dog"].on,
+html[data-skin]:not([data-skin="blush"]) .layout-menu button[data-layout="timeline"].on{background:var(--dog-soft);color:var(--dog-ink)}
+html[data-skin]:not([data-skin="blush"]) .view-switch button[data-view="both"].on{background:linear-gradient(90deg,var(--cat-soft),var(--dog-soft));color:var(--text)}
+html[data-skin]:not([data-skin="blush"]) .round,
+html[data-skin]:not([data-skin="blush"]) .timeline-day-btn{background:var(--card);color:var(--text-2);box-shadow:var(--shadow)}
+html[data-skin]:not([data-skin="blush"]) .today-btn,
+html[data-skin]:not([data-skin="blush"]) .btn.primary,
+html[data-skin]:not([data-skin="blush"]) .tab-add-icon,
+html[data-skin]:not([data-skin="blush"]) .install-inner button:not(.close){background:var(--cat);color:var(--skin-on-accent);box-shadow:var(--shadow)}
+html[data-skin]:not([data-skin="blush"]) .today-btn,
+html[data-skin]:not([data-skin="blush"]) .btn.primary,
+html[data-skin]:not([data-skin="blush"]) .tab-add-icon{color:var(--skin-on-accent)}
+html[data-skin]:not([data-skin="blush"]) .grid{background:var(--card)}
+html[data-skin]:not([data-skin="blush"]) .hd,
+html[data-skin]:not([data-skin="blush"]) .sn{background:var(--skin-surface)}
+html[data-skin]:not([data-skin="blush"]) .hd .d,
+html[data-skin]:not([data-skin="blush"]) .timeline-day-btn span{color:var(--text-2)}
+html[data-skin]:not([data-skin="blush"]) .hd.today,
+html[data-skin]:not([data-skin="blush"]) .sn.now{background:var(--skin-today);color:var(--cat-ink)}
+html[data-skin]:not([data-skin="blush"]) .hd.today .d,
+html[data-skin]:not([data-skin="blush"]) .sn.now b{color:var(--cat-ink)}
+html[data-skin]:not([data-skin="blush"]) .cell.today-col{background:var(--skin-surface)}
+html[data-skin]:not([data-skin="blush"]) .cell.empty-hit:active{background:var(--skin-wash)}
+html[data-skin]:not([data-skin="blush"]) .course.cat{background:var(--skin-cat);color:var(--cat-ink)}
+html[data-skin]:not([data-skin="blush"]) .course.dog{background:var(--skin-dog);color:var(--dog-ink)}
+html[data-skin]:not([data-skin="blush"]) .course-split{background:linear-gradient(180deg,var(--cat-2),var(--dog-2))}
+html[data-skin]:not([data-skin="blush"]) .course.now,
+html[data-skin]:not([data-skin="blush"]) .course-split.now,
+html[data-skin]:not([data-skin="blush"]) .course-stack.now{outline-color:var(--cat)}
+html[data-skin]:not([data-skin="blush"]) .timeline-day-btn.on{background:var(--cat);color:var(--skin-on-accent)}
+html[data-skin]:not([data-skin="blush"]) .timeline-day-btn.on span{color:inherit;opacity:.82}
+html[data-skin]:not([data-skin="blush"]) .timeline-main{background:var(--skin-surface);border-color:var(--skin-grid)}
+html[data-skin]:not([data-skin="blush"]) .timeline-grid-line{border-color:var(--skin-grid)}
+html[data-skin]:not([data-skin="blush"]) .timeline-grid-line::before{background:var(--skin-grid)}
+html[data-skin]:not([data-skin="blush"]) .timeline-free-band{background:var(--skin-free);border-color:var(--skin-free-ink)}
+html[data-skin]:not([data-skin="blush"]) .timeline-free-band span{background:var(--skin-free);color:var(--skin-free-ink)}
+html[data-skin]:not([data-skin="blush"]) .timeline-event.cat{background:var(--skin-cat-event);border-color:var(--cat);color:var(--cat-ink);box-shadow:var(--shadow)}
+html[data-skin]:not([data-skin="blush"]) .timeline-event.dog{background:var(--skin-dog-event);border-color:var(--dog);color:var(--dog-ink);box-shadow:var(--shadow)}
+html[data-skin]:not([data-skin="blush"]) .timeline-event.cat .timeline-node{color:var(--cat)}
+html[data-skin]:not([data-skin="blush"]) .timeline-event.dog .timeline-node{color:var(--dog)}
+html[data-skin]:not([data-skin="blush"]) .timeline-event.cat .timeline-node::before{background:var(--cat);box-shadow:none}
+html[data-skin]:not([data-skin="blush"]) .timeline-event.dog .timeline-node::before{background:var(--dog);box-shadow:none}
+html[data-skin]:not([data-skin="blush"]) .timeline-event.now{outline-color:var(--cat)}
+html[data-skin]:not([data-skin="blush"]) .timeline-free{color:var(--skin-free-ink)}
+html[data-skin]:not([data-skin="blush"]) .timeline-legend .dot-free{background:var(--skin-free-ink)}
+html[data-skin]:not([data-skin="blush"]) .field input,
+html[data-skin]:not([data-skin="blush"]) .field select,
+html[data-skin]:not([data-skin="blush"]) .nick-input,
+html[data-skin]:not([data-skin="blush"]) .sec-row input,
+html[data-skin]:not([data-skin="blush"]) .course-time-row select,
+html[data-skin]:not([data-skin="blush"]) .clock-time-row select,
+html[data-skin]:not([data-skin="blush"]) .clock-time-row input,
+html[data-skin]:not([data-skin="blush"]) .week-custom input{background:var(--skin-field);border-color:var(--line);color:var(--text)}
+html[data-skin]:not([data-skin="blush"]) input::placeholder{color:var(--text-2);opacity:1}
+html[data-skin]:not([data-skin="blush"]) .field input:focus,
+html[data-skin]:not([data-skin="blush"]) .field select:focus{background:var(--skin-field);border-color:var(--cat)}
+html[data-skin]:not([data-skin="blush"]) .btn,
+html[data-skin]:not([data-skin="blush"]) .mini,
+html[data-skin]:not([data-skin="blush"]) .section-owner-switch button[data-owner="cat"].on{background:var(--cat-soft);color:var(--cat-ink)}
+html[data-skin]:not([data-skin="blush"]) .btn.import-file,
+html[data-skin]:not([data-skin="blush"]) .mini.wide,
+html[data-skin]:not([data-skin="blush"]) .section-owner-switch button[data-owner="dog"].on{background:var(--dog-soft);color:var(--dog-ink)}
+html[data-skin]:not([data-skin="blush"]) .btn.export-sync{background:var(--skin-wash);color:var(--text)}
+html[data-skin]:not([data-skin="blush"]) .action-icon,
+html[data-skin]:not([data-skin="blush"]) .btn.import-file .action-icon,
+html[data-skin]:not([data-skin="blush"]) .btn.export-sync .action-icon{background:var(--card);color:var(--cat);border-color:var(--line)}
+html[data-skin]:not([data-skin="blush"]) .btn.primary .action-icon{background:rgba(255,255,255,.16);color:inherit}
+html[data-skin]:not([data-skin="blush"]) .seg button,
+html[data-skin]:not([data-skin="blush"]) .chips button,
+html[data-skin]:not([data-skin="blush"]) .section-owner-switch,
+html[data-skin]:not([data-skin="blush"]) .sync-modes{background:var(--skin-muted);color:var(--text-2)}
+html[data-skin]:not([data-skin="blush"]) .seg button.on,
+html[data-skin]:not([data-skin="blush"]) .chips button.on{background:var(--cat);color:var(--skin-on-accent);box-shadow:none}
+html[data-skin]:not([data-skin="blush"]) .seg button[data-owner="dog"].on,
+html[data-skin]:not([data-skin="blush"]) .seg button[data-me="dog"].on{background:var(--dog);color:var(--skin-on-dog);box-shadow:none}
+html[data-skin]:not([data-skin="blush"]) .seg button.on{color:var(--skin-on-accent)}
+html[data-skin]:not([data-skin="blush"]) .seg button[data-owner="dog"].on,
+html[data-skin]:not([data-skin="blush"]) .seg button[data-me="dog"].on{color:var(--skin-on-dog)}
+html[data-skin]:not([data-skin="blush"]) .sync-modes button{color:var(--text-2)}
+html[data-skin]:not([data-skin="blush"]) .sync-modes button.on{background:var(--card);color:var(--cat-ink);box-shadow:var(--shadow)}
+html[data-skin]:not([data-skin="blush"]) .sync-connected{background:linear-gradient(135deg,var(--cat-soft),var(--dog-soft))}
+html[data-skin]:not([data-skin="blush"]) .sync-connected span,
+html[data-skin]:not([data-skin="blush"]) .sync-connected strong{color:var(--text)}
+html[data-skin]:not([data-skin="blush"]) .sync-connected>b{background:var(--skin-free);color:var(--skin-free-ink)}
+html[data-skin]:not([data-skin="blush"]) .switch input{background:var(--skin-muted);border-color:var(--line)}
+html[data-skin]:not([data-skin="blush"]) .switch input:checked{background:var(--cat);border-color:var(--cat)}
+html[data-skin]:not([data-skin="blush"]) .tabbar{background:var(--skin-bar)}
+html[data-skin]:not([data-skin="blush"]) .tab-icon{box-shadow:var(--shadow)}
+html[data-skin]:not([data-skin="blush"]) .tab-icon-schedule,
+html[data-skin]:not([data-skin="blush"]) .tab[data-page="page-schedule"].on .tab-icon{background:var(--cat-soft);border-color:var(--line)}
+html[data-skin]:not([data-skin="blush"]) .tab-icon-settings,
+html[data-skin]:not([data-skin="blush"]) .tab[data-page="page-settings"].on .tab-icon{background:var(--skin-wash);border-color:var(--line)}
+html[data-skin]:not([data-skin="blush"]) .tab-icon-sync,
+html[data-skin]:not([data-skin="blush"]) .tab[data-page="page-sync"].on .tab-icon{background:var(--dog-soft);border-color:var(--line)}
+html[data-skin]:not([data-skin="blush"]) .nav-calendar{background:linear-gradient(180deg,var(--cat) 0 34%,var(--card) 35% 100%);border-color:var(--cat);box-shadow:none}
+html[data-skin]:not([data-skin="blush"]) .nav-calendar-grid{background:var(--cat-soft);box-shadow:5px 0 var(--cat-soft),10px 0 var(--cat-soft),0 5px var(--cat-soft),5px 5px var(--cat-soft),10px 5px var(--cat-soft)}
+html[data-skin]:not([data-skin="blush"]) .nav-calendar::after{color:var(--cat)}
+html[data-skin]:not([data-skin="blush"]) .nav-gear{color:var(--cat);text-shadow:none}
+html[data-skin]:not([data-skin="blush"]) .nav-cloud{color:var(--dog);text-shadow:none}
+html[data-skin]:not([data-skin="blush"]) .tab[data-page="page-settings"].on{color:var(--cat-ink)}
+html[data-skin]:not([data-skin="blush"]) .tab[data-page="page-settings"]:focus-visible{outline-color:var(--cat)}
+html[data-skin]:not([data-skin="blush"]) .sheet,
+html[data-skin]:not([data-skin="blush"]) .install-inner{background:var(--card);color:var(--text);border-color:var(--line)}
+html[data-skin]:not([data-skin="blush"]) .emoji-grid button{background:var(--skin-muted)}
+html[data-skin]:not([data-skin="blush"]) .emoji-grid button.on{background:var(--cat-soft)}
+
+/* 夜间皮肤增加边界、焦点和课程可读性。 */
+html[data-skin="night"] .paw-bg{
+  opacity:.55;filter:none;
+  background-image:radial-gradient(circle,rgba(227,214,255,.7) 1px,transparent 1.5px),radial-gradient(circle,rgba(137,221,216,.55) 1px,transparent 1.5px);
+  background-size:57px 43px,83px 61px;background-position:7px 10px,29px 24px;
+}
+html[data-skin="night"] .course.cat,html[data-skin="night"] .course.dog{box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 2px 6px rgba(0,0,0,.2)}
+html[data-skin="night"] .timeline-event.cat,html[data-skin="night"] .timeline-event.dog{box-shadow:0 4px 10px rgba(0,0,0,.2)}
+html[data-skin="night"] .timeline-node::before{border-color:#15233D}
+html[data-skin="night"] .timeline-grid-line::before{box-shadow:0 0 0 2px #17243B}
+html[data-skin="night"] .tab-icon::before{opacity:.25}
+html[data-skin="night"] .skin-option.on{box-shadow:0 0 0 2px #5A4A80}
+html[data-skin="night"] .skin-option{background:#1B2B47}
+html[data-skin="night"] .skin-label strong{color:#F1F4FF}
+html[data-skin="night"] .btn.danger,html[data-skin="night"] .danger-btn,html[data-skin="night"] .sec-del,html[data-skin="night"] .time-remove{background:#452D3C;color:#FFD6DC}
+html[data-skin="night"] .sheet-head .danger-link{color:#FFBFCB}
+html[data-skin="night"] .course.faded{opacity:.48;filter:none}
+html[data-skin="night"] input[type="date"],html[data-skin="night"] input[type="time"]{color-scheme:dark}
+
+@media(min-width:640px){
+  html[data-skin="mint"] body{background:linear-gradient(180deg,#E4F3EA,#F5F9F5)}
+  html[data-skin="sun"] body{background:linear-gradient(180deg,#FCEAC3,#FFF9EC)}
+  html[data-skin="night"] body{background:linear-gradient(180deg,#101C34,#0D172B)}
+}
+@media(max-width:360px){.skin-label{display:block}.skin-label small{display:block;margin-top:2px}}
+@media(prefers-reduced-motion:reduce){.skin-option{transition:none}}
+@media(prefers-reduced-transparency:reduce){html[data-skin]:not([data-skin="blush"]) .tabbar,html[data-skin]:not([data-skin="blush"]) .control-trigger{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--card)}}

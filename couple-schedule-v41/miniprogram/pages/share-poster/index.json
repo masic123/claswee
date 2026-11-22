@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "周课表分享",
+  "usingComponents": {
+    "message-note": "/components/message-note/index"
+  }
+}

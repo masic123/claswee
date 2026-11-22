@@ -1,0 +1,51 @@
+<view class="page app-skin skin-{{skin}}">
+  <view class="card">
+    <view class="title">课表截图导入</view>
+    <view class="label">导入给谁</view>
+    <view class="owners"><button data-owner="cat" bindtap="chooseOwner" class="{{owner==='cat'?'on cat':''}}"><text class="nick-cat">{{catName}}</text></button><button data-owner="dog" bindtap="chooseOwner" class="{{owner==='dog'?'on dog':''}}"><text class="nick-dog">{{dogName}}</text></button></view>
+    <button class="image-picker" bindtap="chooseImage">{{imagePath ? '重新选择图片' : '选择课表图片'}}</button>
+    <image wx:if="{{imagePath}}" src="{{imagePath}}" mode="widthFix" class="preview" />
+    <button wx:if="{{imagePath}}" class="recognize" loading="{{busy}}" disabled="{{busy}}" bindtap="recognize">识别图片</button>
+    <text wx:if="{{status}}" class="status">{{status}}</text>
+  </view>
+  <view wx:if="{{warnings.length}}" class="card warnings"><text wx:for="{{warnings}}" wx:key="*this">· {{item}}</text></view>
+  <view wx:if="{{courses.length}}" class="card">
+    <view class="title">确认识别结果</view>
+    <view wx:for="{{courses}}" wx:key="index" class="course-review">
+      <view class="review-head"><text>课程 {{index + 1}}</text><button data-index="{{index}}" bindtap="remove">移除</button></view>
+      <input value="{{item.name}}" placeholder="课程名称" data-index="{{index}}" data-key="name" bindinput="input" />
+      <input value="{{item.loc}}" placeholder="地点（可选）" data-index="{{index}}" data-key="loc" bindinput="input" />
+      <input value="{{item.teacher}}" placeholder="老师（可选）" data-index="{{index}}" data-key="teacher" bindinput="input" />
+      <view wx:for="{{item.slots}}" wx:for-item="slot" wx:for-index="slotIndex" wx:key="index" class="slot-review">
+        <view class="review-field">
+          <text class="field-label">星期几</text>
+          <picker range="{{days}}" value="{{slot.day-1}}" data-index="{{index}}" data-slot="{{slotIndex}}" data-key="day" bindchange="pick"><view>{{days[slot.day-1]}}</view></picker>
+        </view>
+        <view class="pick-row">
+          <view class="review-field">
+            <text class="field-label">起始节数</text>
+            <picker range="{{sections}}" value="{{slot.s1 ? slot.s1-1 : 0}}" data-index="{{index}}" data-slot="{{slotIndex}}" data-key="s1" bindchange="pick"><view>{{slot.s1 ? sections[slot.s1-1] : '选择开始节'}}</view></picker>
+          </view>
+          <view class="review-field">
+            <text class="field-label">结束节数</text>
+            <picker range="{{sections}}" value="{{slot.s2 ? slot.s2-1 : 0}}" data-index="{{index}}" data-slot="{{slotIndex}}" data-key="s2" bindchange="pick"><view>{{slot.s2 ? sections[slot.s2-1] : '选择结束节'}}</view></picker>
+          </view>
+        </view>
+        <text wx:if="{{slot.sectionEstimated}}" class="suggestion">AI 推测节次：第{{slot.s1}}–{{slot.s2}}节，请对照原图核对；可直接修改上方节次</text>
+        <text wx:if="{{slot.dayUncertain}}" class="suggestion">星期位置尚未核实，请对照原图确认</text>
+      </view>
+      <view class="review-field frequency-field">
+        <text class="field-label">上课频率</text>
+        <picker range="{{weekLabels}}" value="{{item.week==='odd'?1:item.week==='even'?2:0}}" data-index="{{index}}" data-key="week" bindchange="pick"><view>{{item.week==='odd'?'单周':item.week==='even'?'双周':'每周'}}</view></picker>
+      </view>
+      <view class="pick-row">
+        <view class="review-field"><text class="field-label">起始周</text><input type="number" value="{{item.wf}}" placeholder="起始周" data-index="{{index}}" data-key="wf" bindinput="input"/></view>
+        <view class="review-field"><text class="field-label">结束周</text><input type="number" value="{{item.wt}}" placeholder="结束周" data-index="{{index}}" data-key="wt" bindinput="input"/></view>
+      </view>
+      <text wx:if="{{item.weekDefaulted}}" class="week-default-note">截图未写明的课程周次已按当前学期预填；请核对上方起止周</text>
+      <text wx:if="{{item.slots.length>1}}" class="extra">本课程共 {{item.slots.length}} 个上课时段，请逐一核对。</text><text wx:if="{{item.warning}}" class="warning">{{item.warning}}</text>
+    </view>
+    <button class="confirm" bindtap="confirm">确认导入 {{courses.length}} 门课</button>
+  </view>
+</view>
+<message-note id="messageNote" />

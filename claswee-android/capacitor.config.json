@@ -1,0 +1,10 @@
+{
+  "appId": "com.claswee.schedule",
+  "appName": "claswee 情侣课表",
+  "webDir": "dist",
+  "android": { "allowMixedContent": false, "backgroundColor": "#fff6fa" },
+  "plugins": {
+    "CapacitorHttp": { "enabled": false },
+    "SplashScreen": { "launchAutoHide": true, "backgroundColor": "#fff6fa" }
+  }
+}

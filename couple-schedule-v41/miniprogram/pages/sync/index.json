@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "云端同步",
+  "usingComponents": {
+    "message-note": "/components/message-note/index"
+  }
+}
